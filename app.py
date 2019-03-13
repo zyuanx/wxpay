@@ -17,14 +17,14 @@ hostname = socket.gethostname()
 socket.gethostbyname(hostname)
 app = Flask(__name__)
 appid = 'wxbcdbe97d7b353c80'  # 小程序ID
-mch_id = '1526671931'  # 商户号
+mch_id = '1111111111'  # 商户号，修改为自己的
 total_fee = '5000'  # 总金额
 attach = 'test'
 # 获取本机ip
 spbill_create_ip = socket.gethostbyname(hostname)  # 终端IP
 notify_url = 'https://file.cumtlee.cn/wxpay/notify'  # 通知地址
 trade_type = 'JSAPI'  # 交易类型
-merchant_key = 'F061CF04D8335A953ECFB982444307DD'  # 商户KEY
+merchant_key = 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'  # 商户KEY，修改为自己的
 
 
 @app.route('/')
