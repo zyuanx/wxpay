@@ -1,7 +1,7 @@
 # wxpay
 写在前面：因为要做一个可以报名、缴费与打印准考证的小程序，所以花了两个下午和两个晚上完成了后端的编写与部署（菜鸡一个），生成准考证的代码在末尾开源链接。
 
-一、准备工作
+# 一、准备工作
 1、商户号：一串数字、需要自行申请，需要一些证明材料
 
 2、小程序ID：已经认证并且加入支付功能，需提前发布以便商户审核通过
@@ -26,7 +26,7 @@
 
 
 
- 二、签名算法（备注为另一种算法）
+# 二、签名算法（备注为另一种算法）
 官方文档：https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3 
 
 1、首先将所要发送的参数进行 ASCII 码从小到大排序，拼接成url参数形式，如：stringA="appid=wxd930ea5d5a258f4f&body=test&device_info=1000&mch_id=10000100&nonce_str=ibuaiVcKdpRxkhJA"
@@ -43,7 +43,7 @@ def create_sign(self, pay_data):
     sign = hashlib.md5(stringSignTemp).hexdigest()
     return sign.upper()
 ```
-三、拼接XML
+# 三、拼接XML
 ```
 def dict_to_xml(dict_data):
     xml = ["<xml>"]
@@ -100,29 +100,29 @@ def get_pay_info(self):
 ```
 基于开源代码 https://github.com/ilyq/wxpay 进行了适当的修改，在此感谢。
 
- 四、flask服务器部署
- 环境配置（宝塔面板为 python2，安装下列环境的时候均改为 pip3 install XXX）
+# 四、flask服务器部署
+> 环境配置（宝塔面板为 python2，安装下列环境的时候均改为 pip3 install XXX）
 
 - Nginx
 - VirtualEnv
 - uwsgi
 - flask
 
-安装Nginx
+## 安装Nginx
 pip3 install nginx
 
-安装VirtualEnv
+## 安装VirtualEnv
 pip3 install virtualenv
 
 > 安装完VirtualEnv后，进入自己的项目目录，通过 virtualenv venv（venv可改为任意名字） 建立一个虚拟目录 venv，然后 source venv/bin/activate 进入虚拟环境 SSH终端开始多了  (venv)
 
-安装 uWSGI
+## 安装 uWSGI
 pip3 install uwsgi
 
-安装 Flask 
+## 安装 Flask 
 pip3 install flask
 
-项目文件（例子）
+## 项目文件（例子）
 ```
 from flask import Flask
 
@@ -131,12 +131,14 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return "Hello World!"
-```
+    
 # 文件名 app.py
-配置uwsgi
+```
+
+# 配置uwsgi
 > touch uwsgi.ini 新建一个 ini 文件
 
-配置文件内容
+# 配置文件内容
 ```
 [uwsgi]
 master = true
@@ -162,7 +164,7 @@ uwsgi --ini uwsgi.ini 启动，会发现目录内生成了 uwsgi.pid 与 wsgi.lo
 
 可以通过 lsof -i:3000 查看 端口所对应的进程 id ，kill uwsgi.pid 就可以结束相应的进程
 
-配置Nginx
+# 配置Nginx
 ```
 server {
         charset      utf-8;
