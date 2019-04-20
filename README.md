@@ -36,15 +36,15 @@
 3、MD5加密，并转化为大写
 
  代码如下
-'''
+```
 def create_sign(self, pay_data):
     stringA = '&'.join(["{0}={1}".format(k, pay_data.get(k)) for k in sorted(pay_data)])
     stringSignTemp = '{0}&key={1}'.format(stringA, self.merchant_key).encode('utf-8')
     sign = hashlib.md5(stringSignTemp).hexdigest()
     return sign.upper()
-'''
+```
 三、拼接XML
-'''
+```
 def dict_to_xml(dict_data):
     xml = ["<xml>"]
     for k, v in dict_data.iteritems():
@@ -54,9 +54,9 @@ def dict_to_xml(dict_data):
 
 xml_data = dict_to_xml(self.pay_data)
 response = request(url=self.url, data=xml_data)
-'''
+```
 在使用上述代码进行xml拼接的时候，prepay_id 返回数据为空。通过搜索，发现一种原因是终端 ip 的原因，所以修改为 socket  获取终端 ip ，但是返回数据仍然为空，然后我就猜想是 xml 拼接的问题，索性就用笨方法字符串拼接，然后 format 对 xml字符串中的标识进行值的修改，返回数据成功。
-'''
+```
 def get_pay_info(self):
     # 调用签名函数
     sign = self.create_sign(self.pay_data)
@@ -97,7 +97,7 @@ def get_pay_info(self):
     paySign_data.pop('appId')
     paySign_data['paySign'] = paySign
     return paySign_data
-'''
+```
 基于开源代码 https://github.com/ilyq/wxpay 进行了适当的修改，在此感谢。
 
  四、flask服务器部署
