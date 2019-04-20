@@ -103,13 +103,10 @@ def get_pay_info(self):
  四、flask服务器部署
  环境配置（宝塔面板为 python2，安装下列环境的时候均改为 pip3 install XXX）
 
-Nginx
-
-VirtualEnv
-
-uwsgi
-
-flask
+- Nginx
+- VirtualEnv
+- uwsgi
+- flask
 
 安装Nginx
 pip3 install nginx
@@ -117,7 +114,7 @@ pip3 install nginx
 安装VirtualEnv
 pip3 install virtualenv
 
- 安装完VirtualEnv后，进入自己的项目目录，通过 virtualenv venv（venv可改为任意名字） 建立一个虚拟目录 venv，然后 source venv/bin/activate 进入虚拟环境 SSH终端开始多了  (venv)
+> 安装完VirtualEnv后，进入自己的项目目录，通过 virtualenv venv（venv可改为任意名字） 建立一个虚拟目录 venv，然后 source venv/bin/activate 进入虚拟环境 SSH终端开始多了  (venv)
 
 安装 uWSGI
 pip3 install uwsgi
@@ -125,7 +122,8 @@ pip3 install uwsgi
 安装 Flask 
 pip3 install flask
 
- 项目文件（例子）
+项目文件（例子）
+```
 from flask import Flask
 
 app = Flask(__name__)
@@ -133,13 +131,13 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return "Hello World!"
-
+```
 # 文件名 app.py
 配置uwsgi
-touch uwsgi.ini 新建一个 ini 文件
+> touch uwsgi.ini 新建一个 ini 文件
 
- 配置文件内容
-
+配置文件内容
+```
 [uwsgi]
 master = true
 # venv 虚拟目录
@@ -159,11 +157,13 @@ buffer-size=32768
 pidfile=uwsgi.pid
 # 日志文件
 daemonize=uwsgi.log
+```
 uwsgi --ini uwsgi.ini 启动，会发现目录内生成了 uwsgi.pid 与 wsgi.log 两个文件
 
 可以通过 lsof -i:3000 查看 端口所对应的进程 id ，kill uwsgi.pid 就可以结束相应的进程
 
- 配置Nginx
+配置Nginx
+```
 server {
         charset      utf-8;
         listen       80;
@@ -177,9 +177,6 @@ server {
            		uwsgi_param UWSGI_CHDIR  /www/wwwroot/www.blackcode.club/sql;
         }
 }
+```
 重载 Nginx 配置、启动 uwsgi 进程
 打开 119.29.224.165 就可以发现显示的 hello world。
-
-我的开源 https://github.com/flylzy/wxpay
-
-参考引用 配置搭建阿里云服务器nginx+uwsgi (python) 、wxpay
