@@ -109,7 +109,7 @@ def get_pay_info(self):
 - flask
 
 ## 安装Nginx
-pip3 install nginx
+apt install nginx-core
 
 ## 安装VirtualEnv
 pip3 install virtualenv
