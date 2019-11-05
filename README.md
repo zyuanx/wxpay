@@ -1,12 +1,8 @@
----
-title: 微信支付后台
-date: 2019-05-24 12:11:08
-tags: [Flask, Python3, WeChat]
-categories: 后端
----
+# 微信支付flask后端
+
 写在前面：因为要做一个可以报名、缴费与打印准考证的小程序，所以花了一些时间完成了后端的编写与部署，代码开源连接在末尾
 
-# 准备工作
+## 准备工作
 1、商户号：一串数字、需要自行申请，需要一些证明材料
 
 2、小程序ID：已经认证并且加入支付功能，需提前发布以便商户审核通过
@@ -31,7 +27,7 @@ categories: 后端
 
 
 
-# 签名算法（备注为另一种算法）
+## 签名算法（备注为另一种算法）
 官方文档：https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3 
 
 1、首先将所要发送的参数进行 ASCII 码从小到大排序，拼接成url参数形式，如：stringA="appid=wxd930ea5d5a258f4f&body=test&device_info=1000&mch_id=10000100&nonce_str=ibuaiVcKdpRxkhJA"
@@ -48,7 +44,7 @@ def create_sign(self, pay_data):
     sign = hashlib.md5(stringSignTemp).hexdigest()
     return sign.upper()
 ```
-# 拼接XML
+## 拼接XML
 ```
 def dict_to_xml(dict_data):
     xml = ["<xml>"]
