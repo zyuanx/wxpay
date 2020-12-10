@@ -20,8 +20,7 @@ def create_pay():
         'body': '支付-测试',  # 商品描述
         'attach': '附加数据',  # 附加数据
         'total_fee': '1',  # 订单总金额，单位为分
-        'openid': request.args.get('openid') or "o0wGL5cdilBxYCYc_VPKqvJypB1M"
-
+        'openid': request.args.get('openid')
     }
     wxpay = WxPay(pay_data)
     pay_info = wxpay.get_pay_info()

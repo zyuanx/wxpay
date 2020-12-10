@@ -28,6 +28,14 @@ def dict_to_order_xml(dict_data):
     return "".join(xml)
 
 
+def dict_to_xml(dict_data):
+    xml = ["<xml>"]
+    for k, v in dict_data.items():
+        xml.append("<{0}>{1}</{0}>".format(k, v))
+    xml.append("</xml>")
+    return "".join(xml)
+
+
 def xml_to_dict(xml_data):
     """
     xml to dict
@@ -51,7 +59,7 @@ class WxPay(object):
         self.appid = 'wxbcdbe97d7b353c80'  # 微信分配的小程序ID
         self.mch_id = '1526671931'  # 商户号
         self.notify_url = 'https://xxxx/wxpay/notify'  # 通知地址
-        self.spbill_create_ip = '127.0.0.1' or socket.gethostbyname(socket.gethostname())  # 获取本机ip
+        self.spbill_create_ip = socket.gethostbyname(socket.gethostname())  # 获取本机ip
         self.merchant_key = 'lxwxx2014qgdxsyyjs2019wgyxy20190'  # 商户KEY，修改为自己的
         self.pay_data = pay_data
 
@@ -81,6 +89,7 @@ class WxPay(object):
         post_data = {
             'appid': self.appid,  # 小程序ID
             'mch_id': self.mch_id,  # 商户号
+            'attach': self.pay_data.get('attach'),  # 附加数据
             'nonce_str': get_nonce_str(),  # 随机字符串
             'body': self.pay_data.get('body'),  # 商品描述
             'out_trade_no': str(int(time.time())),  # 商户订单号
@@ -93,7 +102,7 @@ class WxPay(object):
         sign = self.create_sign(post_data)
         post_data['sign'] = sign
 
-        xml = dict_to_order_xml(post_data)
+        xml = dict_to_xml(post_data)
 
         # 统一下单接口请求
         r = requests.post(self.url, data=xml.encode("utf-8"))
