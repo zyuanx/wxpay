@@ -68,11 +68,11 @@ def create_sign(self, pay_data):
     sign = hashlib.md5(stringSignTemp).hexdigest()
     return sign.upper()
 ```
-## 拼接有序XML
+## 拼接XML
 ```python
 def dict_to_xml(dict_data):
     xml = ["<xml>"]
-    for k, v in dict_data.iteritems():
+    for k, v in dict_data.items():
         xml.append("<{0}>{1}</{0}>".format(k, v))
     xml.append("</xml>")
     return "".join(xml)
