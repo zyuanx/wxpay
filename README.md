@@ -125,4 +125,4 @@ def get_pay_info(self):
 
 ![](./success.png)
 
-<img src="./pay.png" style="width:400px;" />
+<img src="./pay.png" width=400 />
