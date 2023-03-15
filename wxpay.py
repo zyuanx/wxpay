@@ -56,11 +56,11 @@ class WxPay(object):
 
     def __init__(self, pay_data):
         self.url = 'https://api.mch.weixin.qq.com/pay/unifiedorder'
-        self.appid = 'wxbcdbe97d7b353c80'  # 微信分配的小程序ID
-        self.mch_id = '1526671931'  # 商户号
+        self.appid = 'xxxxx'  # 微信分配的小程序ID
+        self.mch_id = 'xxxx'  # 商户号
         self.notify_url = 'https://xxxx/wxpay/notify'  # 通知地址
         self.spbill_create_ip = socket.gethostbyname(socket.gethostname())  # 获取本机ip
-        self.merchant_key = 'lxwxx2014qgdxsyyjs2019wgyxy20190'  # 商户KEY，修改为自己的
+        self.merchant_key = 'xxxxxx'  # 商户KEY，修改为自己的
         self.pay_data = pay_data
 
     def create_sign(self, pay_data):
